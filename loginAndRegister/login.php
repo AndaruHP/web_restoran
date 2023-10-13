@@ -32,11 +32,11 @@ if (isset($_SESSION['user_login'])) {
                     $_SESSION['user_login'] = true;
                     if ($user_login['role'] == 0) {
                         $_SESSION['role'] = 0;
-                        header('location: ../admin/admin_dashboard.php');
+                        header('location: ../index.php');
                         exit;
                     } else {
                         $_SESSION['role'] = 1;
-                        header('location: ../user/user_dashboard.php');
+                        header('location: ../index.php');
                         exit;
                     }
                 } else {

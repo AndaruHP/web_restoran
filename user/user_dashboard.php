@@ -1,7 +1,11 @@
 <?php
 session_start();
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
-    header('location: ../loginAndRegister/login.php');
+    if ($_SESSION['role'] == 0) {
+        header('location: ../admin/admin_dashboard.php');
+    } else {
+        header('location: ../loginAndRegister/login.php');
+    }
     exit;
 }
 echo 'kamu adalah user <br>';

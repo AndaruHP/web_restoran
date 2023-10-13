@@ -1,9 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 0) {
-    header('location: ../loginAndRegister/login.php');
+    header('location: ../user/user_dashboard.php');
     exit;
 }
+
 require_once('../database/connect.php');
 
 if (isset($_POST['insert_button'])) {
