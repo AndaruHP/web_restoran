@@ -100,6 +100,7 @@ if (isset($_SESSION['user_login'])) {
         </form>
         <div class="mt-2">
             <p>Already registered? <a href="login.php">Login</a></p>
+            <p>Back to homepage <a href="../index.php">Homepage</a></p>
         </div>
     </div>
 </body>

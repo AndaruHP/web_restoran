@@ -1,13 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['user_login'])) {
-    if ($_SESSION['role'] == 0) {
-        header('location: ../admin/admin_dashboard.php');
-        // exit;
-    } else {
-        header('location: ../user/user_dashboard.php');
-        // exit;
-    }
+    header('location: ../index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -68,6 +62,7 @@ if (isset($_SESSION['user_login'])) {
         </form>
         <div class="mt-2">
             <p>Not registered yet? <a href="register.php">Register</a></p>
+            <p>Back to homepage <a href="../index.php">Homepage</a></p>
         </div>
     </div>
 </body>

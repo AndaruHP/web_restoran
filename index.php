@@ -15,7 +15,8 @@
     <div class="container">
         <div class="mt-5 justify-content-center">
             <a href="loginAndRegister/login.php" class="btn btn-primary me-2">Login</a>
-            <a href="loginAndRegister/register.php" class="btn btn-secondary">Register</a>
+            <a href="loginAndRegister/register.php" class="btn btn-secondary me-2">Register</a>
+            <a href="bridge/bridge.php" class="btn btn-danger">Account</a>
         </div>
     </div>
 
