@@ -62,7 +62,19 @@ if (isset($_SESSION['user_login'])) {
                 <label for="password">Password</label>
                 <input type="password" class="form-control" name="password">
             </div>
-            <div class="form-btn mt-2">
+            <br />
+            <label>Confirm that you're a human</label>
+            <br />
+                <?php
+                require "captcha.php";
+                $PHPCAP->prime();
+                $PHPCAP->draw();
+                ?>
+                <br />
+                <label>Complete the Captcha</label>
+                <br />
+                <input name="captcha" type="text" required>
+                <div class="form-btn mt-2">
                 <input type="submit" class="btn btn-primary" value="Login" name="submit_login">
             </div>
         </form>
