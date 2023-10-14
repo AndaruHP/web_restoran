@@ -1,4 +1,7 @@
 
+body {
+    background-color: #020202 !important;
+}
 /* navbar */
 .navbar {
     font-family: Suranna;
@@ -7,6 +10,7 @@
     display: flex;
     justify-content: center;
     background-color: #020202;
+    opacity: 90% !important;
   }
 
 .navbar-nav .nav-link {
