@@ -16,6 +16,7 @@ if (isset($_POST['insert_button'])) {
     $uploads_dir = 'uploads/';
 
     // Check if a file was uploaded
+    // kalo files gitu jatohnya kaya array dua dimensi
     if ($_FILES['foto_menu']['error'] === UPLOAD_ERR_OK) {
         if (move_uploaded_file($_FILES['foto_menu']['tmp_name'], $uploads_dir . $foto_menu)) {
             $sql = "INSERT INTO data_makanan (nama_menu, gambar_menu, deskripsi_menu, harga_menu, kategori_menu) VALUES ('$nama_menu', '$foto_menu', '$deskripsi_menu', '$harga_menu', '$kategori_menu')";
@@ -34,7 +35,6 @@ if (isset($_POST['insert_button'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,36 +42,35 @@ if (isset($_POST['insert_button'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoI6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
-        <ul>
-            <li>
+    <div class="container">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-group">
                 <label for="nama_menu">Nama Menu:</label>
-                <input type="text" name="nama_menu">
-            </li>
-            <li>
-                <label for="gambar_menu">Gambar Menu:</label>
-                <input type="file" name="foto_menu">
-            </li>
-            <li>
+                <input type="text" class="form-control" name="nama_menu">
+            </div>
+            <div class="form-group">
+                <label for="foto_menu">Gambar Menu:</label>
+                <input type="file" class="form-control" name="foto_menu">
+            </div>
+            <div class="form-group">
                 <label for="deskripsi_menu">Deskripsi Menu:</label>
-                <input type="text" name="deskripsi_menu">
-            </li>
-            <li>
+                <input type="text" class="form-control" name="deskripsi_menu">
+            </div>
+            <div class="form-group">
                 <label for="harga_menu">Harga Menu:</label>
-                <input type="number" name="harga_menu">
-            </li>
-            <li>
+                <input type="number" class="form-control" name="harga_menu">
+            </div>
+            <div class="form-group">
                 <label for="kategori_menu">Kategori Menu:</label>
-                <input type="text" name="kategori_menu">
-            </li>
-            <li>
-                <button type="submit" name="insert_button">Insert Data</button>
-            </li>
-        </ul>
-    </form>
+                <input type="text" class="form-control" name="kategori_menu">
+            </div>
+            <button type="submit" class="btn btn-primary" name="insert_button">Insert Data</button>
+        </form>
+    </div>
 </body>
 
 </html>

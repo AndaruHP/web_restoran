@@ -4,6 +4,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 0) {
     header('location: ../loginAndRegister/login.php');
     exit;
 }
+
+include '../database/connect.php';
 ?>
 
 <!DOCTYPE html>
@@ -18,10 +20,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 0) {
 
 <body>
     <div class="container mt-5">
-
         <a href="../logout/logout.php" class="btn btn-warning">Logout</a>
         <a href="admin_insert.php" class="btn btn-dark">Tambah Menu</a>
-        <table class="table">
+        <h3 class="mt-3">Semua Menu</h3>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Nama Menu</th>
@@ -35,10 +37,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 0) {
             </thead>
             <tbody>
                 <?php
-                require_once('../database/connect.php');
                 $sql = "SELECT * FROM data_makanan";
-                $result = mysqli_query($conn, $sql); ?>
-                <?php
+                $result = mysqli_query($conn, $sql);
                 foreach ($result as $row) :
                 ?>
                     <tr>
@@ -58,16 +58,52 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 0) {
             </tbody>
         </table>
 
-
-
         <?php
-        $sql_show_category = "SELECT DISTINCT kategori_menu FROM data_makanan";
+        // untuk memperlihatkan kategori menu dan menu itemnya
+        $sql_show_category = "SELECT DISTINCT kategori_menu FROM data_makanan ORDER BY kategori_menu ASC";
         $result_show_category = mysqli_query($conn, $sql_show_category);
-        echo 'semua kategori: <br>';
-        while ($row_category = mysqli_fetch_assoc($result_show_category)) {
-            echo $row_category['kategori_menu'] . '<br>';
+
+        $menuItemsByCategory = [];
+
+        while ($category = mysqli_fetch_assoc($result_show_category)) {
+            $categoryName = $category['kategori_menu'];
+            $sql_show_category_item = "SELECT nama_menu FROM data_makanan WHERE kategori_menu = '$categoryName' ORDER BY nama_menu ASC";
+            $result_show_category_item = mysqli_query($conn, $sql_show_category_item);
+            $menuItems = [];
+            while ($menuItem = mysqli_fetch_assoc($result_show_category_item)) {
+                $menuItems[] = $menuItem['nama_menu'];
+            }
+            $menuItemsByCategory[$categoryName] = $menuItems;
         }
         ?>
+
+        <h3 class="mt-4">Kategori Menu</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Nama Menu</th>
+                            <th>Jumlah Item</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($menuItemsByCategory as $category => $menuItems) :
+                        ?>
+                            <tr>
+                                <td><?= $category ?></td>
+                                <td><?= implode(', ', $menuItems) ?></td>
+                                <td><?= count($menuItems) ?></td>
+                            </tr>
+                        <?php
+                        endforeach;
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 
