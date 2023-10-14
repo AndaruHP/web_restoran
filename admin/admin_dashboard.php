@@ -4,6 +4,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 0) {
     header('location: ../loginAndRegister/login.php');
     exit;
 }
+//  else {
+//     // $id = $_SESSION['user_id'];
+// }
 
 include '../database/connect.php';
 ?>
@@ -20,44 +23,18 @@ include '../database/connect.php';
 
 <body>
     <div class="container mt-5">
+        <?php
+        // global $id;
+        // $sql = "SELECT * FROM access_table WHERE id = $id";
+        // $result = mysqli_query($conn, $sql);
+        // $row = mysqli_fetch_assoc($result);
+
+        // echo '<h3>Nama Lengkap: ' . $row['first_name'] . ' ' . $row['last_name'] . '</h3>';
+        // echo '<h3>Username: ' . $row['username'] . '</h3>';
+        ?>
         <a href="../logout/logout.php" class="btn btn-warning">Logout</a>
         <a href="admin_insert.php" class="btn btn-dark">Tambah Menu</a>
-        <h3 class="mt-3">Semua Menu</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nama Menu</th>
-                    <th>Gambar Menu</th>
-                    <th>Deskripsi Menu</th>
-                    <th>Harga Menu</th>
-                    <th>Kategori Menu</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $sql = "SELECT * FROM data_makanan";
-                $result = mysqli_query($conn, $sql);
-                foreach ($result as $row) :
-                ?>
-                    <tr>
-                        <td><?= $row['nama_menu'] ?></td>
-                        <td>
-                            <img src="uploads/<?= $row['gambar_menu'] ?>" width="200">
-                        </td>
-                        <td><?= $row['deskripsi_menu'] ?></td>
-                        <td><?= $row['harga_menu'] ?></td>
-                        <td><?= $row['kategori_menu'] ?></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                <?php
-                endforeach;
-                ?>
-            </tbody>
-        </table>
-
+        <a href="../index.php" class="btn btn-primary">Homepage</a>
         <?php
         // untuk memperlihatkan kategori menu dan menu itemnya
         $sql_show_category = "SELECT DISTINCT kategori_menu FROM data_makanan ORDER BY kategori_menu ASC";
@@ -104,6 +81,45 @@ include '../database/connect.php';
                 </table>
             </div>
         </div>
+        <h3 class="mt-3">Semua Menu</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nama Menu</th>
+                    <th>Gambar Menu</th>
+                    <th>Deskripsi Menu</th>
+                    <th>Harga Menu</th>
+                    <th>Kategori Menu</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sql = "SELECT * FROM data_makanan";
+                $result = mysqli_query($conn, $sql);
+                foreach ($result as $row) :
+                ?>
+                    <tr>
+                        <td><?= $row['nama_menu'] ?></td>
+                        <td>
+                            <img src="uploads/<?= $row['gambar_menu'] ?>" width="200">
+                        </td>
+                        <td><?= $row['deskripsi_menu'] ?></td>
+                        <td><?= $row['harga_menu'] ?></td>
+                        <td><?= $row['kategori_menu'] ?></td>
+                        <td>
+                            <a href="admin_edit.php?id=<?= $row['id_menu'] ?>" class="btn btn-primary">Edit</a>
+                        </td>
+                        <td>
+                            <a href="admin_delete.php?id=<?= $row['id_menu'] ?>" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                <?php
+                endforeach;
+                ?>
+            </tbody>
+        </table>
     </div>
 </body>
 
