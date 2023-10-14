@@ -20,7 +20,9 @@
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#top">Restoran</a>
+        <a class="navbar-brand" href="#top">
+                <img src="css/gambar/coffee-solid.svg" class="logo"> Restoran
+            </a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -37,38 +39,19 @@
     <div class="title-container" data-aos="fade-up" data-aos-duration="1000"> <!-- Set the duration to 1000ms (1 second) -->
         <h1 data-aos="fade-up" data-aos-duration="1000">Restaurant Name</h1>
         <p data-aos="fade-up" data-aos-duration="1000">Your Slogan Here</p>
+        <div class="button-container">
+          <button class="btn">
+            Get Started
+          </button>
     </div>
+
 
 
 
     <!-- container menu -->
     <div class="container mt-5">
     <?php
-        
-            // include('path-to-menu_data.php'); // Include the menu data file
 
-            // // Loop through the menu items and generate HTML for each
-            // foreach ($menuItems as $menuItem) {
-            //     echo '<div class="menu-item">';
-                
-            //     // Image div
-            //     echo '<div class="menu-image">';
-            //     echo '<img src="' . $menuItem['image'] . '" alt="' . $menuItem['name'] . '">';
-            //     echo '</div>';
-                
-            //     // Price div
-            //     echo '<div class="menu-price">';
-            //     echo '<p>Price: ' . $menuItem['price'] . '</p>';
-            //     echo '</div>';
-                
-            //     // Content div
-            //     echo '<div class="menu-content">';
-            //     echo '<h2>' . $menuItem['name'] . '</h2>';
-            //     echo '<p>' . $menuItem['content'] . '</p>';
-            //     echo '</div>';
-                
-            //     echo '</div>'; // Close the menu-item div
-            // }
         ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
