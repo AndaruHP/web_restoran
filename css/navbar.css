@@ -1,0 +1,23 @@
+
+/* navbar */
+.navbar {
+    font-family: Suranna;
+    color: white;
+    font-size: 1.05em;
+    display: flex;
+    justify-content: center;
+    background-color: #020202;
+  }
+
+.navbar-nav .nav-link {
+    color: #fbf5e9;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #7f50d2;
+}
+
+.navbar-brand {
+    color: #fbf5e9 !important;
+    cursor: pointer;
+}
