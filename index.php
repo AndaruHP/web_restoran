@@ -20,7 +20,7 @@
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-        <a class="navbar-brand" href="#top">
+        <a class="navbar-brand" href="#index.php">
                 <img src="css/gambar/coffee-solid.svg" class="logo"> Restoran
             </a>
             <div class="collapse navbar-collapse">
@@ -38,7 +38,7 @@
 
     <div class="title-container" data-aos="fade-up" data-aos-duration="1000"> <!-- Set the duration to 1000ms (1 second) -->
         <h1 data-aos="fade-up" data-aos-duration="1000">Restaurant Name</h1>
-        <p data-aos="fade-up" data-aos-duration="1000">Your Slogan Here</p>
+        <p data-aos="fade-up" data-aos-duration="1000">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque suscipit tenetur sed itaque minima officiis quis amet quam provident! Sunt, <br> laudantium quae. Voluptates facilis harum non ad quaerat modi veniam?</p>
         <div class="button-container">
           <button class="btn">
             Get Started
