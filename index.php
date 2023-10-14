@@ -36,7 +36,34 @@
         <p>Your Slogan Here</p>
     </div>
 
-</body>
+    <div class="container mt-5">
+        <?php
+            // include('path-to-menu_data.php'); // Include the menu data file
+
+            // // Loop through the menu items and generate HTML for each
+            // foreach ($menuItems as $menuItem) {
+            //     echo '<div class="menu-item">';
+                
+            //     // Image div
+            //     echo '<div class="menu-image">';
+            //     echo '<img src="' . $menuItem['image'] . '" alt="' . $menuItem['name'] . '">';
+            //     echo '</div>';
+                
+            //     // Price div
+            //     echo '<div class="menu-price">';
+            //     echo '<p>Price: ' . $menuItem['price'] . '</p>';
+            //     echo '</div>';
+                
+            //     // Content div
+            //     echo '<div class="menu-content">';
+            //     echo '<h2>' . $menuItem['name'] . '</h2>';
+            //     echo '<p>' . $menuItem['content'] . '</p>';
+            //     echo '</div>';
+                
+            //     echo '</div>'; // Close the menu-item div
+            // }
+        ?>
+    </div>
 
 
 </html>
