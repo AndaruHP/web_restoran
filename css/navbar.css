@@ -1,7 +1,4 @@
 
-body {
-    background-color: #020202 !important;
-}
 /* navbar */
 .navbar {
     font-family: Suranna;
@@ -25,3 +22,4 @@ body {
     color: #fbf5e9 !important;
     cursor: pointer;
 }
+

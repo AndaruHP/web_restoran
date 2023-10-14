@@ -23,7 +23,7 @@ if (isset($_SESSION['user_login'])) {
 
 <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#top">Restoran</a>
+            <a class="navbar-brand" href="../index.php">Restoran</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
