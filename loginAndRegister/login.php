@@ -38,59 +38,89 @@ if (isset($_SESSION['user_login'])) {
     </nav>
 
 <body>
-    <div class="container col-4 mt-5">
-        <?php
+        <!-- Background image -->
+        <div class="p-5 bg-image" style="
+        background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+        height: 300px;
+        ">
+        <!-- Background image -->
+        <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+        position: absolute;
+        background: hsla(0, 0%, 100%, 0.8);
+        backdrop-filter: blur(30px);
+        ">
+    <div class="card-body py-5 px-md-5">
+    <?php
+        require "captcha.php";
+        $PHPCAP = new Captcha();
         // cek kalo semua data sudah masuk atau belum
         if (isset($_POST['submit_login'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
 
+            // Verifikasi username
             require_once('../database/connect.php');
             $sql = "SELECT * FROM access_table WHERE username = '$username'";
             $result = mysqli_query($conn, $sql);
             $user_login = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            if ($user_login) {
+
+            if (!$user_login) {
+                echo "<div class='alert alert-danger'>Username tidak ditemukan</div>";
+            } else {
+                // Verifikasi password
                 if (password_verify($password, $user_login["password"])) {
-                    session_start();
-                    $_SESSION['user_login'] = true;
-                    if ($user_login['role'] == 0) {
-                        $_SESSION['role'] = 0;
-                        header('location: ../bridge/bridge.php');
-                        exit;
+                    // Verifikasi captcha
+                    $captchaInput = $_POST['captcha'];
+                    if (!$PHPCAP->verify($captchaInput)) {
+                        echo "<div class='alert alert-danger'>Captcha tidak sesuai</div>";
                     } else {
-                        $_SESSION['role'] = 1;
-                        header('location: ../bridge/bridge.php');
-                        exit;
+                        // Captcha benar, set session dan arahkan ke halaman berikutnya
+                        session_start();
+                        $_SESSION['user_login'] = true;
+                        if ($user_login['role'] == 0) {
+                            $_SESSION['role'] = 0;
+                            header('location: ../bridge/bridge.php');
+                            exit;
+                        } else {
+                            $_SESSION['role'] = 1;
+                            header('location: ../bridge/bridge.php');
+                            exit;
+                        }
                     }
                 } else {
                     echo "<div class='alert alert-danger'>Password salah</div>";
                 }
-            } else {
-                echo "<div class='alert alert-danger'>Username tidak ditemukan</div>";
             }
         }
         ?>
-        <form action="" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" name="username">
+
+        <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                <h2 class="fw-bold mb-5">Log in</h2>
+                <form action="" method="post">
+                <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username">
+                    </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" name="password">
+            <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
             </div>
-            <br />
-            <label>Confirm that you're a human</label>
-            <br />
+                    <br />
+                    <label class="form-label">Confirm that you're a human</label>
+                    <br />
                 <?php
-                require "captcha.php";
                 $PHPCAP->prime();
                 $PHPCAP->draw();
                 ?>
                 <br />
                 <label>Complete the Captcha</label>
                 <br />
-                <input name="captcha" type="text" required>
+                <input type="text" name="captcha" class="form-control" required>
                 <div class="form-btn mt-2">
                 <input type="submit" class="btn btn-primary" value="Login" name="submit_login">
             </div>

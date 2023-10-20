@@ -1,7 +1,7 @@
 <?php
 class Captcha {
   // (A) CAPTCHA SETTINGS
-  private $length = 8; // number of characters
+  private $length = 5; // number of characters
   private $capW = 300; // captcha width
   private $capH = 100; // captcha height
   private $capF = "C:/Windows/Fonts/arial.ttf"; // font - CHANGE TO YOUR OWN!
