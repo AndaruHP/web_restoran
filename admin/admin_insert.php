@@ -5,7 +5,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 0) {
     exit;
 }
 
-require_once('../database/connect.php');
+include('../database/connect.php');
 
 $errorAlert = false;
 $error_message = "";
@@ -17,7 +17,6 @@ if (isset($_POST['insert_button'])) {
     $harga_menu = $_POST['harga_menu'];
     $kategori_menu = $_POST['kategori_menu'];
     $uploads_dir = 'uploads/';
-
 
     if (empty($nama_menu) || empty($foto_menu) || empty($deskripsi_menu) || empty($harga_menu) || empty($kategori_menu)) {
         $errorAlert = true;
@@ -83,7 +82,13 @@ if (isset($_POST['insert_button'])) {
             </div>
             <div class="form-group">
                 <label for="kategori_menu">Kategori Menu:</label>
-                <input type="text" class="form-control" name="kategori_menu">
+                <select class="form-control" name="kategori_menu">
+                    <option value="Appetizer">Appetizer</option>
+                    <option value="Beverages">Beverages</option>
+                    <option value="Main Course">Main Course</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Side Dish">Side Dish</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary mt-2" name="insert_button">Insert Data</button>
         </form>

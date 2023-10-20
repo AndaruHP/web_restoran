@@ -103,7 +103,7 @@ include '../database/connect.php';
                     <tr>
                         <td><?= $row['nama_menu'] ?></td>
                         <td>
-                            <img src="uploads/<?= $row['gambar_menu'] ?>" width="200">
+                            <img src="uploads/<?= $row['gambar_menu'] ?>" width="200" height="200" style="object-fit: cover;">
                         </td>
                         <td><?= $row['deskripsi_menu'] ?></td>
                         <td><?= $row['harga_menu'] ?></td>

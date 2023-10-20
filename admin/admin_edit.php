@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
     $sql = "SELECT * FROM data_makanan WHERE id_menu = $id";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
-    var_dump($row);
+    // var_dump($row);
 }
 
 if (isset($_POST['update_button'])) {
@@ -85,7 +85,13 @@ if (isset($_POST['update_button'])) {
             </div>
             <div class="form-group">
                 <label for="kategori_menu">Kategori Menu:</label>
-                <input type="text" class="form-control" name="kategori_menu" value="<?= $row['kategori_menu'] ?>">
+                <select class="form-control" name="kategori_menu">
+                    <option value="Appetizer" <?= $row['kategori_menu'] === 'Appetizer' ? 'selected' : '' ?>>Appetizer</option>
+                    <option value="Beverages" <?= $row['kategori_menu'] === 'Beverages' ? 'selected' : '' ?>>Beverages</option>
+                    <option value="Main Course" <?= $row['kategori_menu'] === 'Main Course' ? 'selected' : '' ?>>Main Course</option>
+                    <option value="Dessert" <?= $row['kategori_menu'] === 'Dessert' ? 'selected' : '' ?>>Dessert</option>
+                    <option value="Side Dish" <?= $row['kategori_menu'] === 'Side Dish' ? 'selected' : '' ?>>Side Dish</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary mt-2" name="update_button">Insert Data</button>
         </form>
