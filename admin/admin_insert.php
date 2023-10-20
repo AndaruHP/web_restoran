@@ -11,9 +11,9 @@ $errorAlert = false;
 $error_message = "";
 
 if (isset($_POST['insert_button'])) {
-    $nama_menu = $_POST['nama_menu'];
+    $nama_menu = htmlspecialchars($_POST['nama_menu']);
     $foto_menu = $_FILES['foto_menu']['name'];
-    $deskripsi_menu = $_POST['deskripsi_menu'];
+    $deskripsi_menu = htmlspecialchars($_POST['deskripsi_menu']);
     $harga_menu = $_POST['harga_menu'];
     $kategori_menu = $_POST['kategori_menu'];
     $uploads_dir = 'uploads/';

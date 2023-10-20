@@ -17,11 +17,11 @@ if (isset($_GET['id'])) {
 
 if (isset($_POST['update_button'])) {
     $id_menu = $_POST['id_menu'];
-    $nama_menu = $_POST['nama_menu'];
+    $nama_menu = htmlspecialchars($_POST['nama_menu']);
     $foto_menu = $_FILES['foto_menu']['name'];
     $foto_menu_lama = $_POST['gambarLama'];
-    $deskripsi_menu = $_POST['deskripsi_menu'];
-    $harga_menu = $_POST['harga_menu'];
+    $deskripsi_menu = htmlspecialchars($_POST['deskripsi_menu']);
+    $harga_menu = htmlspecialchars($_POST['harga_menu']);
     $kategori_menu = $_POST['kategori_menu'];
     $uploads_dir = 'uploads/';
 

@@ -91,7 +91,7 @@ include '../database/connect.php';
                     <th>Harga Menu</th>
                     <th>Kategori Menu</th>
                     <th>Edit</th>
-                    <th>Delete</th>
+                    <!-- <th>Delete</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -103,15 +103,13 @@ include '../database/connect.php';
                     <tr>
                         <td><?= $row['nama_menu'] ?></td>
                         <td>
-                            <img src="uploads/<?= $row['gambar_menu'] ?>" width="200" height="200" style="object-fit: cover;">
+                            <img src="uploads/<?= $row['gambar_menu'] ?>" width="200" style="object-fit: cover;">
                         </td>
-                        <td><?= $row['deskripsi_menu'] ?></td>
-                        <td><?= $row['harga_menu'] ?></td>
+                        <td class="col-md-6"><?= $row['deskripsi_menu'] ?></td>
+                        <td>Rp <?= number_format($row['harga_menu'], 0, ',', '.') ?></td>
                         <td><?= $row['kategori_menu'] ?></td>
                         <td>
                             <a href="admin_edit.php?id=<?= $row['id_menu'] ?>" class="btn btn-primary">Edit</a>
-                        </td>
-                        <td>
                             <a href="admin_delete.php?id=<?= $row['id_menu'] ?>" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
