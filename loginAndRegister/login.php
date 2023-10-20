@@ -39,18 +39,31 @@ if (isset($_SESSION['user_login'])) {
 
 <body>
     <div class="container col-4 mt-5">
-        <?php
-        // cek kalo semua data sudah masuk atau belum
-        if (isset($_POST['submit_login'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+    <?php
+    require "captcha.php";
+    $PHPCAP = new Captcha();
+    // cek kalo semua data sudah masuk atau belum
+    if (isset($_POST['submit_login'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-            require_once('../database/connect.php');
-            $sql = "SELECT * FROM access_table WHERE username = '$username'";
-            $result = mysqli_query($conn, $sql);
-            $user_login = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            if ($user_login) {
-                if (password_verify($password, $user_login["password"])) {
+        // Verifikasi username
+        require_once('../database/connect.php');
+        $sql = "SELECT * FROM access_table WHERE username = '$username'";
+        $result = mysqli_query($conn, $sql);
+        $user_login = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+        if (!$user_login) {
+            echo "<div class='alert alert-danger'>Username tidak ditemukan</div>";
+        } else {
+            // Verifikasi password
+            if (password_verify($password, $user_login["password"])) {
+                // Verifikasi captcha
+                $captchaInput = $_POST['captcha'];
+                if (!$PHPCAP->verify($captchaInput)) {
+                    echo "<div class='alert alert-danger'>Captcha tidak sesuai</div>";
+                } else {
+                    // Captcha benar, set session dan arahkan ke halaman berikutnya
                     session_start();
                     $_SESSION['user_login'] = true;
                     if ($user_login['role'] == 0) {
@@ -62,14 +75,14 @@ if (isset($_SESSION['user_login'])) {
                         header('location: ../bridge/bridge.php');
                         exit;
                     }
-                } else {
-                    echo "<div class='alert alert-danger'>Password salah</div>";
                 }
             } else {
-                echo "<div class='alert alert-danger'>Username tidak ditemukan</div>";
+                echo "<div class='alert alert-danger'>Password salah</div>";
             }
         }
-        ?>
+    }
+    ?>
+
         <form action="" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -83,14 +96,13 @@ if (isset($_SESSION['user_login'])) {
             <label>Confirm that you're a human</label>
             <br />
                 <?php
-                require "captcha.php";
                 $PHPCAP->prime();
                 $PHPCAP->draw();
                 ?>
                 <br />
                 <label>Complete the Captcha</label>
                 <br />
-                <input name="captcha" type="text" required>
+                <input type="text" name="captcha" class="form-control" required>
                 <div class="form-btn mt-2">
                 <input type="submit" class="btn btn-primary" value="Login" name="submit_login">
             </div>
