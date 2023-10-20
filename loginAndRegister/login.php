@@ -98,14 +98,13 @@ if (isset($_SESSION['user_login'])) {
                 <div class="col-lg-8">
                 <h2 class="fw-bold mb-5">Log in</h2>
                 <form action="" method="post">
-                <div class="col-md-6 mb-4">
+                <div class="form-outline mb-4">
                         <div class="form-outline">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" name="username">
                     </div>
             </div>
-            <div class="col-md-6 mb-4">
-                        <div class="form-outline">
+                        <div class="form-outline mb-4">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" name="password">
                     </div>
