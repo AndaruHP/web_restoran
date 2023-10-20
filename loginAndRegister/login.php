@@ -38,20 +38,7 @@ if (isset($_SESSION['user_login'])) {
     </nav>
 
 <body>
-
-  <!-- Background image -->
-  <div class="p-5 bg-image" style="
-        background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
-        height: 300px;
-        ">
-  <!-- Background image -->
-
-  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
-        position: absolute;
-        background: hsla(0, 0%, 100%, 0.8);
-        backdrop-filter: blur(30px);
-        ">
-    <div class="card-body py-5 px-md-5">
+    <div class="container col-4 mt-5">
         <?php
         // cek kalo semua data sudah masuk atau belum
         if (isset($_POST['submit_login'])) {
@@ -83,24 +70,17 @@ if (isset($_SESSION['user_login'])) {
             }
         }
         ?>
-              <div class="row d-flex justify-content-center">
-        <div class="col-lg-8">
-          <h2 class="fw-bold mb-5">Log in</h2>
         <form action="" method="post">
-        <div class="col-md-6 mb-4">
-                <div class="form-outline">
+            <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" name="username">
             </div>
-    </div>
-    <div class="col-md-6 mb-4">
-                <div class="form-outline">
+            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" name="password">
             </div>
-    </div>
             <br />
-            <label class="form-label">Confirm that you're a human</label>
+            <label>Confirm that you're a human</label>
             <br />
                 <?php
                 require "captcha.php";
@@ -111,7 +91,7 @@ if (isset($_SESSION['user_login'])) {
                 <label>Complete the Captcha</label>
                 <br />
                 <input name="captcha" type="text" required>
-                <div class="btn btn-primary btn-block mb-4">
+                <div class="form-btn mt-2">
                 <input type="submit" class="btn btn-primary" value="Login" name="submit_login">
             </div>
         </form>
@@ -119,7 +99,6 @@ if (isset($_SESSION['user_login'])) {
             <p>Not registered yet? <a href="register.php">Register</a></p>
             <p>Back to homepage <a href="../index.php">Homepage</a></p>
         </div>
-    </div>
     </div>
 </body>
 
