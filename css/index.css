@@ -479,4 +479,34 @@ body {
     text-align: center;
     font-size: 13px;
     color: #fff;
+  }  }
+
+
+.carousel-item img {
+    height: 60em;
+    width: 100%;
+    object-fit: cover;
   }
+
+  .carousel-caption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    transform: translate(0, 45%) !important;
+}
+
+.caption-content {
+    color: #fff;
+}
+
+.carousel-caption h3 {
+    font-size: 48px;
+    margin: 0;
+}
+
+.carousel-caption p {
+    font-size: 16px;
+    margin: 0;
+}

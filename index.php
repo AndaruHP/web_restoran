@@ -13,31 +13,36 @@ include('database/connect.php');
     <link rel="stylesheet" type="text/css" href="css/navbar.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                Restoran
-            </a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="cart/cart.php" class="nav-link">Cart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="loginAndRegister/login.php">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="loginAndRegister/register.php">Register</a>
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            Restoran
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="cart/cart.php" class="nav-link navbar-btn">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-btn" href="loginAndRegister/login.php">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-btn" href="loginAndRegister/register.php">Register</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
 
     <div class="title-container" data-aos="fade-up" data-aos-duration="1000">
         <h1 data-aos="fade-up" data-aos-duration="1000">Restaurant Name</h1>
@@ -49,7 +54,7 @@ include('database/connect.php');
         </div>
     </div>
 
-    <section id="about" class="about">
+    <section id="about" class="about"  data-aos-offset="500" data-aos-duration="1000">>
         <div class="container" data-aos="fade-up">
             <div class="row">
                 <div class="col-lg-6 order-1 o  rder-lg-2" data-aos="zoom-in" data-aos-delay="100">
@@ -75,6 +80,54 @@ include('database/connect.php');
         </div>
     </section>
 
+    <section class="carousel mb-5" data-aos="fade-right" data-aos-offset="500" data-aos-duration="2000"> 
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+        <img class="d-block w-100" src="css/gambar/carousel1.jpg" alt="First slide">
+        <div class="carousel-caption d-none d-md-block">
+        <div class="caption-content">
+                <h3>Caption 1</h3>
+                <p>Description for Image 1</p>
+            </div>
+        </div>
+    </div>
+        <div class="carousel-item">
+        <img class="d-block w-100" src="css/gambar/carousel2.jpg" alt="Second slide">
+        <div class="carousel-caption d-none d-md-block">
+        <div class="caption-content">
+                <h3>Caption 1</h3>
+                <p>Description for Image 1</p>
+            </div>
+  </div>
+
+        </div>
+        <div class="carousel-item">
+        <img class="d-block w-100" src="css/gambar/carousel3.jpg" alt="Third slide">
+        <div class="carousel-caption d-none d-md-block">
+        <div class="caption-content">
+                <h3>Caption 1</h3>
+                <p>Description for Image 1</p>
+            </div>
+  </div>
+
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</section>
 
     <?php
     if (isset($_POST['add_to_cart'])) {
@@ -109,7 +162,7 @@ include('database/connect.php');
 
     ?>
 
-    <section id="menu" class="menu section-bg">
+    <section id="menu" class="menu section-bg mb-5">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -144,6 +197,9 @@ include('database/connect.php');
             <div class="menu-content">
                 <a class="menu-title"><?= $key['nama_menu'] ?></a>
                 <span>Rp.<?= $key['harga_menu'] ?></span>
+            </div>
+            <div class="menu-ingredients">
+              <?=$key['deskripsi_menu'] ?>
             </div>
             <form action="" method="post">
                 <div class="button-container">
@@ -221,11 +277,19 @@ include('database/connect.php');
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
-
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init();
     </script>
+    <script>
+            $('.carousel').carousel({
+                interval: 5000  // Set the interval to 5000 milliseconds (5 seconds)
+            });
+    </script>
+
     <script>
     $(document).ready(function () {
         // Initialize Isotope
