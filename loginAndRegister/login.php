@@ -59,6 +59,7 @@ if (isset($_SESSION['user_login'])) {
                     $stmt->execute();
                     $result = $stmt->get_result();
                     $user_login = $result->fetch_assoc();
+                    $user_id = $user_login['id'];
 
                     if (!$user_login) {
                         echo "<div class='alert alert-danger'>Username tidak ditemukan</div>";
@@ -75,10 +76,12 @@ if (isset($_SESSION['user_login'])) {
                                 $_SESSION['user_login'] = true;
                                 if ($user_login['role'] == 0) {
                                     $_SESSION['role'] = 0;
+                                    $_SESSION['user_id'] = $user_id;
                                     header('location: ../bridge/bridge.php');
                                     exit;
                                 } else {
                                     $_SESSION['role'] = 1;
+                                    $_SESSION['user_id'] = $user_id;
                                     header('location: ../bridge/bridge.php');
                                     exit;
                                 }

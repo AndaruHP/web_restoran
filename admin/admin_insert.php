@@ -22,17 +22,47 @@ if (isset($_POST['insert_button'])) {
         $errorAlert = true;
         $error_message = "Semua data harus diisi";
     } else {
-        move_uploaded_file($_FILES['foto_menu']['tmp_name'], $uploads_dir . $foto_menu);
+        // Validasi Tipe File
+        $allowedTypes = array(
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "image/bmp",
+            "image/webp",
+            "image/svg+xml",
+            "image/tiff",
+            "image/x-icon",
+            "image/vnd.microsoft.icon",
+            "image/vnd.wap.wbmp",
+            "image/heif",
+            "image/heic"
+        );
+        if (!in_array($_FILES['foto_menu']['type'], $allowedTypes)) {
+            $errorAlert = true;
+            $error_message = "Hanya file gambar yang diizinkan (JPEG, PNG, GIF).";
+        }
 
-        $sql = "INSERT INTO data_makanan (nama_menu, gambar_menu, deskripsi_menu, harga_menu, kategori_menu) VALUES ('$nama_menu', '$foto_menu', '$deskripsi_menu', '$harga_menu', '$kategori_menu')";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            header('location: admin_dashboard.php');
-        } else {
-            echo 'Error: ' . mysqli_error($conn);
+        // Batasan Ukuran File
+        $maxFileSize = 5 * 1024 * 1024; // 2MB dalam byte
+        if ($_FILES['foto_menu']['size'] > $maxFileSize) {
+            $errorAlert = true;
+            $error_message = "Ukuran file terlalu besar. Maksimum 5MB diizinkan.";
+        }
+
+        if (!$errorAlert) {
+            move_uploaded_file($_FILES['foto_menu']['tmp_name'], $uploads_dir . $foto_menu);
+
+            $sql = "INSERT INTO data_makanan (nama_menu, gambar_menu, deskripsi_menu, harga_menu, kategori_menu) VALUES ('$nama_menu', '$foto_menu', '$deskripsi_menu', '$harga_menu', '$kategori_menu')";
+            $result = mysqli_query($conn, $sql);
+            if ($result) {
+                header('location: admin_dashboard.php');
+            } else {
+                echo 'Error: ' . mysqli_error($conn);
+            }
         }
     }
 }
+
 
 // notes
 // Apa yang belum?

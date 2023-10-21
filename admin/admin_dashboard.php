@@ -103,7 +103,7 @@ include '../database/connect.php';
                     <tr>
                         <td><?= $row['nama_menu'] ?></td>
                         <td>
-                            <img src="uploads/<?= $row['gambar_menu'] ?>" width="200" style="object-fit: cover;">
+                            <img src="uploads/<?= $row['gambar_menu'] ?>" width="200" height="150" style="object-fit: cover;">
                         </td>
                         <td class="col-md-6"><?= $row['deskripsi_menu'] ?></td>
                         <td>Rp <?= number_format($row['harga_menu'], 0, ',', '.') ?></td>
@@ -111,6 +111,7 @@ include '../database/connect.php';
                         <td>
                             <a href="admin_edit.php?id=<?= $row['id_menu'] ?>" class="btn btn-primary">Edit</a>
                             <a href="admin_delete.php?id=<?= $row['id_menu'] ?>" class="btn btn-danger">Delete</a>
+
                         </td>
                     </tr>
                 <?php
