@@ -22,6 +22,7 @@ echo 'kamu adalah user <br>';
 
 <body>
     <a href="../logout/logout.php" class="btn btn-warning">Logout</a>
+    <a href="../index.php" class="btn btn-primary">Homepage</a>
 </body>
 
 </html>
