@@ -1,9 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('location: ../loginAndRegister/login.php');
-    exit;
-}
 
 include('../database/connect.php');
 
