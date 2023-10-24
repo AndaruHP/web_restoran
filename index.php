@@ -35,22 +35,34 @@ include('database/connect.php');
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="cart/cart.php" class="nav-link navbar-btn">Cart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link navbar-btn" href="loginAndRegister/login.php">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link navbar-btn" href="loginAndRegister/register.php">Register</a>
-                    </li>
-                </ul>
+                <?php
+                if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] != 0 || $_SESSION['user_id'] != 1)) {
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link navbar-btn" href="bridge/bridge.php">Account</a>';
+                    echo '</li>';
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link navbar-btn" href="cart/cart.php">Cart</a>';
+                    echo '</li>';
+                } else {
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link navbar-btn" href="cart/cart.php">Cart</a>';
+                    echo '</li>';
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link navbar-btn" href="loginAndRegister/login.php">Login</a>';
+                    echo '</li>';
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link navbar-btn" href="loginAndRegister/register.php">Register</a>';
+                    echo '</li>';
+                }
+                ?>
+
             </div>
         </div>
     </nav>
 
 
     <div class="title-container" data-aos="fade-up" data-aos-duration="1000">
+        <h3>Welcome to our</h3>
         <h1 data-aos="fade-up" data-aos-duration="1000">Restaurant Name</h1>
         <p data-aos="fade-up" data-aos-duration="1000">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque
             suscipit tenetur sed itaque minima officiis quis amet quam provident! Sunt, <br> laudantium quae. Voluptates
@@ -72,7 +84,7 @@ include('database/connect.php');
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
                     <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-                    <p class="fst-italic">
+                    <p class="">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua.
                     </p>
@@ -258,6 +270,7 @@ include('database/connect.php');
                         <div class="footer-info">
                             <h3>Restoran</h3>
                             <p>
+                                
 
                             </p>
 

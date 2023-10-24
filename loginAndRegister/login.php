@@ -1,4 +1,6 @@
 <?php
+require_once "captcha.php";
+
 session_start();
 if (isset($_SESSION['user_login'])) {
     if ($_SESSION['role'] == 0) {
@@ -10,10 +12,8 @@ if (isset($_SESSION['user_login'])) {
     }
 }
 
-if (isset($_POST['submit_login'])) {
-    require "captcha.php"; // Pastikan file captcha.php ada
+if (isset($_POST['submit_login'])) { 
     $PHPCAP = new Captcha(); // Inisialisasi objek Captcha
-
     $username = $_POST['username'];
     $password = $_POST['password'];
     require_once('../database/connect.php'); // Pastikan file connect.php ada
@@ -261,7 +261,6 @@ form{
                     </div>
                     <div class="form-group">
                         <?php
-                        include('./captcha.php');
                         $PHPCAP->prime();
                         $PHPCAP->draw();
                         ?>

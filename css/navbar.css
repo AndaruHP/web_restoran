@@ -1,4 +1,5 @@
 /* navbar */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .navbar {
   font-family: 'Poppins', sans-serif !important;
   color: white !important;
@@ -14,6 +15,9 @@
 .navbar-brand {
   color: #fbf5e9 !important;
   cursor: pointer !important;
+  font-family: 'Bebas Neue', sans-serif !important;
+  letter-spacing: 10px;
+  font-size: 1.5em !important;
 }
 
 .navbar-brand:hover {
