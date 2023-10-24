@@ -86,6 +86,7 @@ if (isset($_POST['checkout'])) {
 
                         // Loop through the combined data
                         $totalprice = 0;
+                        $_SESSION['totalprice'] = $totalprice;
 
                         foreach ($cart as $item) {
                             if ($item['quantity'] > 0) {
