@@ -45,8 +45,7 @@ if (isset($_POST['add_to_cart'])) {
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
@@ -60,8 +59,7 @@ if (isset($_POST['add_to_cart'])) {
             <a class="navbar-brand" href="#">
                 IF-330 Cafetarian
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -228,12 +226,11 @@ if (isset($_POST['add_to_cart'])) {
                 $sql = "SELECT * FROM data_makanan";
                 $result = mysqli_query($conn, $sql);
                 $userid = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : -1;
-                foreach ($result as $key): ?>
+                foreach ($result as $key) : ?>
                     <div class="col-lg-6 menu-item filter-<?= str_replace(' ', '', $key['kategori_menu']) ?>">
                         <!-- tolong ini biar bentuknya menyesuaikan card, bisa dipencet yang akan muncul deskripsi, bisa di close -->
                         <div class="img-container">
-                            <img src="admin/uploads/<?= $key['gambar_menu'] ?>" class="menu-img"
-                                alt="<?= $key['gambar_menu'] ?>">
+                            <img src="admin/uploads/<?= $key['gambar_menu'] ?>" class="menu-img" alt="<?= $key['gambar_menu'] ?>">
                         </div>
                         <div class="menu-content">
                             <a class="menu-title">
@@ -250,8 +247,7 @@ if (isset($_POST['add_to_cart'])) {
                             <div class="button-container">
                                 <button class="btn cart-button" type="submit" name="add_to_cart">add to cart</button>
                                 <input type="hidden" name="id_produk" value="<?= $key['id_menu'] ?>">
-                                <input type="hidden" name="id_user"
-                                    value="<?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '' ?>">
+                                <input type="hidden" name="id_user" value="<?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '' ?>">
 
                             </div>
                         </form>
@@ -291,7 +287,7 @@ if (isset($_POST['add_to_cart'])) {
 
                     <div class="col-lg-2 col-md-6 footer-links">
                         <h4>Useful Links</h4>
-                        <a href="https://github.com/AndaruHP/web_restoran" style="text-decoration:none;"> https://github.com/AndaruHP/web_restoran </a>
+                        <a href="https://github.com/AndaruHP/web_restoran" target="_blank" style="text-decoration:none;"> Github </a>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
@@ -330,12 +326,8 @@ if (isset($_POST['add_to_cart'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init();
@@ -343,7 +335,7 @@ if (isset($_POST['add_to_cart'])) {
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Initialize Isotope
             $('.menu-container').isotope({
                 itemSelector: '.menu-item',
@@ -351,7 +343,7 @@ if (isset($_POST['add_to_cart'])) {
             });
 
             // Filter items on button click
-            $('#menu-flters li').on('click', function () {
+            $('#menu-flters li').on('click', function() {
                 $('#menu-flters li').removeClass('filter-active');
                 $(this).addClass('filter-active');
                 var selector = $(this).data('filter');

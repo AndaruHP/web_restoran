@@ -12,7 +12,7 @@ if (isset($_SESSION['user_login'])) {
     }
 }
 
-if (isset($_POST['submit_login'])) { 
+if (isset($_POST['submit_login'])) {
     $PHPCAP = new Captcha(); // Inisialisasi objek Captcha
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -68,10 +68,10 @@ if (isset($_POST['submit_login'])) {
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-       <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-   <style media="screen">
+    <style media="screen">
         *,
         *:before,
         *:after {
@@ -115,22 +115,22 @@ if (isset($_POST['submit_login'])) {
             bottom: -150px;
         }
 
-form{
-    height: 670px;
-    width: 400px;
-    background-color: rgba(255,255,255,0.13);
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 50px 35px;
-}
+        form {
+            height: 670px;
+            width: 400px;
+            background-color: rgba(255, 255, 255, 0.13);
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            padding: 50px 35px;
+        }
 
-        form  {
+        form {
             font-family: 'Poppins', sans-serif;
             color: #ffffff;
             letter-spacing: 0.5px;
@@ -188,85 +188,86 @@ form{
             margin-top: 15px;
             font-size: 14px;
         }
-/* Reset some properties for smaller screens */
-@media (max-width: 600px) {
-    .background {
-        width: 80%;
-        height: auto;
-        position: static;
-        transform: none;
-        left: 0;
-        top: 0;
-    }
 
-    .background .shape {
-        display12px;
-    }
+        /* Reset some properties for smaller screens */
+        @media (max-width: 600px) {
+            .background {
+                width: 80%;
+                height: auto;
+                position: static;
+                transform: none;
+                left: 0;
+                top: 0;
+            }
 
-    input {
-        height: 30px;
-    }
+            .background .shape {
+                display: 12px;
+            }
 
-    button {
-        font-size: 14px;
-        padding: 10px 0;
-    }
-    form {
-        height: 630px;
-    }
-}
+            input {
+                height: 30px;
+            }
 
+            button {
+                font-size: 14px;
+                padding: 10px 0;
+            }
+
+            form {
+                height: 630px;
+            }
+        }
     </style>
 </head>
 
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand" href="../index.php">
-        IF-330 Cafetarian
+            IF-330 Cafetarian
         </a>
 
     </div>
 </nav>
 
 <body>
-<div class="background">
+    <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-                <form action="" method="post">
-                    <h3>Log in</h3>
-                    <div class="form-outline">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" name="username">
-                    </div>
-                    <div class="form-outline">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Confirm that you're a human</label>
-                    </div>
-                    <div class="form-group">
-                        <?php
-                        $PHPCAP->prime();
-                        $PHPCAP->draw();
-                        ?>
-                    </div>
-                    <div class="form-group">
-                        <label>Complete the Captcha</label>
-                    </div>
-                    <div class="form-group col-4">
-                        <input type="text" name="captcha" class="form-control" required>
-                    </div>
-                    <div class="form-btn mt-2">
-                        <input type="submit" class="btn btn-primary" value="Login" name="submit_login">
-                    </div>
-                    <p>Not registered yet? <a href="register.php">Register</a></p>
-                    <p>Back to homepage <a href="../index.php">Homepage</a></p>
-                </form>
-
-            </div>
+    <form action="" method="post">
+        <h3>Log in</h3>
+        <div class="form-outline">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username">
         </div>
+        <div class="form-outline">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Confirm that you're a human</label>
+        </div>
+        <div class="form-group">
+            <?php
+            $PHPCAP->prime();
+            $PHPCAP->draw();
+            ?>
+        </div>
+        <div class="form-group">
+            <label>Complete the Captcha</label>
+        </div>
+        <div class="form-group col-4">
+            <input type="text" name="captcha" class="form-control" required>
+        </div>
+        <div class="form-btn mt-2">
+            <input type="submit" class="btn btn-primary" value="Login" name="submit_login">
+        </div>
+        <p>Not registered yet? <a href="register.php">Register</a></p>
+        <p>Back to homepage <a href="../index.php">Homepage</a></p>
+    </form>
+
+    </div>
+    </div>
     </div>
 </body>
 
