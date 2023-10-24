@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once "captcha.php";
 
 session_start();
@@ -56,6 +57,7 @@ if (isset($_POST['submit_login'])) {
         }
     }
 }
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
