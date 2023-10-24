@@ -72,6 +72,8 @@ if (isset($_POST['add_to_cart'])) {
                         echo '<li class="nav-item">';
                         echo '<a class="nav-link navbar-btn" href="cart/cart.php">Cart</a>';
                         echo '</li>';
+                        echo '<a class="nav-link navbar-btn" href="logout/logout.php">Logout</a>';
+                        echo '</li>';
                     } else {
                         echo '<li class="nav-item">';
                         echo '<a class="nav-link navbar-btn" href="cart/cart.php">Cart</a>';
@@ -241,7 +243,8 @@ if (isset($_POST['add_to_cart'])) {
                             <div class="button-container">
                                 <button class="btn cart-button" type="submit" name="add_to_cart">add to cart</button>
                                 <input type="hidden" name="id_produk" value="<?= $key['id_menu'] ?>">
-                                <input type="hidden" name="id_user" value="<?= $_SESSION['user_id'] ?>">
+                                <input type="hidden" name="id_user" value="<?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '' ?>">
+
                             </div>
                         </form>
                     </div>

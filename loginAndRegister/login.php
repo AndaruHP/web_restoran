@@ -200,20 +200,7 @@ form{
     }
 
     .background .shape {
-        display: none; /* Hide the background shapes on small screens */
-    }
-
-    form {
-        width: 90%;
-        padding: 20px;
-    }
-
-    form h3 {
-        font-size: 20px;
-    }
-
-    label {
-        font-size: 12px;
+        display12px;
     }
 
     input {
