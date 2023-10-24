@@ -136,54 +136,56 @@ if (isset($_SESSION['user_login'])) {
         option {
             color: #080710;
         }
-/* Reset some properties for smaller screens */
-@media (max-width: 600px) {
-    .background {
-        width: 80%;
-        height: auto;
-        position: static;
-        transform: none;
-        left: 0;
-        top: 0;
-    }
 
-    .background .shape {
-        display: none; /* Hide the background shapes on small screens */
-    }
+        /* Reset some properties for smaller screens */
+        @media (max-width: 600px) {
+            .background {
+                width: 80%;
+                height: auto;
+                position: static;
+                transform: none;
+                left: 0;
+                top: 0;
+            }
 
-    form {
-        width: 90%;
-        padding: 20px;
-    }
+            .background .shape {
+                display: none;
+                /* Hide the background shapes on small screens */
+            }
 
-    form h3 {
-        font-size: 20px;
-    }
+            form {
+                width: 90%;
+                padding: 20px;
+            }
 
-    label {
-        font-size: 12px;
-    }
+            form h3 {
+                font-size: 20px;
+            }
 
-    input {
-        height: 30px;
-    }
+            label {
+                font-size: 12px;
+            }
 
-    button {
-        font-size: 14px;
-        padding: 10px 0;
-    }
-    form {
-        height: 630px;
-    }
-}
+            input {
+                height: 30px;
+            }
 
+            button {
+                font-size: 14px;
+                padding: 10px 0;
+            }
+
+            form {
+                height: 630px;
+            }
+        }
     </style>
 </head>
 
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand" href="../index.php">
-            Restoran
+        IF-330 Cafetarian
         </a>
 
     </div>

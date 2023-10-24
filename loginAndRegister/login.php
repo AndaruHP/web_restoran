@@ -130,7 +130,7 @@ form{
     padding: 50px 35px;
 }
 
-        form * {
+        form  {
             font-family: 'Poppins', sans-serif;
             color: #ffffff;
             letter-spacing: 0.5px;
@@ -222,7 +222,7 @@ form{
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand" href="../index.php">
-            Restoran
+        IF-330 Cafetarian
         </a>
 
     </div>

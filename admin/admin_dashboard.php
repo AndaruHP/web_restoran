@@ -24,7 +24,7 @@ include '../database/connect.php';
 
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="../index.php">Cafetarian</a>
+        <a class="navbar-brand" href="../index.php">IF-330 Cafetarian</a>
     </div>
 </nav>
 
