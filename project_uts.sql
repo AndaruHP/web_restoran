@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2023 at 12:24 PM
+-- Generation Time: Oct 24, 2023 at 12:21 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -67,7 +67,13 @@ CREATE TABLE `cart_table` (
 --
 
 INSERT INTO `cart_table` (`id`, `user_id`, `product_id`, `quantity`) VALUES
-(7, 5, 15, 1);
+(56, 1, 17, 0),
+(57, 1, 24, 0),
+(58, 1, 19, 1),
+(59, 1, 22, 0),
+(60, 1, 26, 0),
+(61, 1, 18, 1),
+(62, 1, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -89,10 +95,41 @@ CREATE TABLE `data_makanan` (
 --
 
 INSERT INTO `data_makanan` (`id_menu`, `nama_menu`, `gambar_menu`, `deskripsi_menu`, `harga_menu`, `kategori_menu`) VALUES
-(13, 'Salad', 'salad.jpg', 'An appetizer salad, often simply referred to as a salad appetizer, is a light and refreshing dish typically served at the beginning of a meal to whet the appetite. These salads are designed to stimulate the taste buds and prepare diners for the main course. They come in various forms, from simple garden salads with fresh greens and vegetables to more elaborate options that might include fruits, nuts, cheese, or other creative ingredients. Salad appetizers are popular for their crisp textures, bright flavors, and the opportunity to incorporate various dressings or vinaigrettes to enhance the overall dining experience. They offer a healthy and flavorful start to a meal.', 21000, 'Main Course'),
-(14, 'Fried Calamari', 'calamari.jpg', 'Fried calamari is a popular appetizer in many Mediterranean and seafood restaurants. It consists of sliced or whole squid, usually coated in a seasoned batter or breadcrumb mixture, and deep-fried until crispy and golden brown. The result is a delightful dish with a combination of crunchy texture on the outside and tender, flavorful squid on the inside. Fried calamari is often served with various dipping sauces, such as marinara sauce, aioli, or a squeeze of lemon for added flavor. It&#039;s a beloved seafood snack that is enjoyed for its delicious taste and appealing texture.', 33500, 'Appetizer'),
-(15, 'Nasi Goreng', 'nasgor.jpeg', 'sadmsadsad', 12000, 'Appetizer'),
-(16, 'Somay', 'somay.jpg', 'nskkdsksndasnn', 9000, 'Appetizer');
+(17, 'Caprese Salad', 'caprese.jpg', 'Caprese Salad kami adalah perpaduan segar antara irisan tomat merah matang, mozzarella mutiara berkualitas tinggi, dan daun basil segar yang disajikan dengan lapisan balsamic reduction, menciptakan harmoni rasa yang memanjakan selera Anda.', 52000, 'Appetizer'),
+(18, 'Garlic Bread', 'garlicbread.jpg', 'Roti bawang putih kami adalah campuran sempurna dari roti panggang yang renyah dan potongan bawang putih yang dipanggang dengan mentega bawang, menghasilkan hidangan pembuka yang lezat dan aromatik.', 31500, 'Appetizer'),
+(19, 'French Fries', 'frenchfries.jpg', 'Kami hadirkan French Fries yang renyah dan gurih, digoreng sempurna hingga keemasan, disajikan dengan pilihan saus favorit Anda untuk memuaskan selera camilan Anda.', 23000, 'Side Dish'),
+(20, 'Coleslaw', 'coleslaw.jpg', 'Coleslaw kami adalah paduan segar dari kubis dan wortel yang diiris tipis, diselimuti dengan saus krim yang lembut dan rasa segar yang sempurna untuk melengkapi hidangan Anda.&quot;', 27000, 'Side Dish'),
+(21, 'Iced Latte', 'icedlatte.jpg', 'Iced Latte kami adalah kombinasi sempurna antara espresso yang kuat dan susu yang dingin, disajikan dengan es batu untuk memberikan kepercayaan segar dan kafein yang mendalam dalam setiap tegukan.', 16000, 'Beverages'),
+(22, 'Fresh Fruit Smoothie', 'freshfruit.jpg', 'Nikmati kelezatan alami dalam gelas dengan Fresh Fruit Smoothie kami yang diisi dengan berbagai buah segar yang dipadukan dengan yogurt lembut, menciptakan minuman sehat yang penuh dengan rasa dan energi.', 24500, 'Beverages'),
+(23, 'Grilled Chicken Sandwich', 'grilledchicken.jpeg', 'Grilled Chicken Sandwich kami adalah kombinasi sempurna antara potongan daging ayam panggang yang saus, sayuran segar, dan saus spesial, diapit dalam roti yang gurih untuk memberikan cita rasa yang memuaskan di setiap gigitan.', 44000, 'Main Course'),
+(24, 'Spaghetti Carbonara', 'carbonaraspaghetti.jpeg', 'Spaghetti Carbonara kami adalah kombinasi yang menggugah selera dari pasta lezat yang dipadukan dengan saus krim berbumbu, bacon crip yang gurih, dan taburan parmesan segar, menciptakan hidangan pasta klasik yang memanjakan lidah Anda.', 37000, 'Main Course'),
+(25, 'Chocolate Brownie', 'chocolatebrownie.jpeg', 'Chocolate Brownie kami adalah sajian manis yang tak tertahankan, dengan tekstur luar yang renyah dan lapisan dalam yang lembut, disajikan dengan taburan cokelat leleh yang memikat.', 33000, 'Dessert'),
+(26, 'New York Cheesecake', 'nycheesecake.jpeg', 'New York Cheesecake kami adalah kelezatan klasik yang tak tertandingi, dengan lapisan keju krim yang lembut dan pangsit graham yang garing, dihadirkan dengan topping buah-buahan segar untuk memberikan sentuhan manis yang sempurna.', 36000, 'Dessert'),
+(27, 'Ice Cream', 'icecream.jpeg', 'Ice Cream kami adalah perpaduan rasa yang lezat dan tekstur lembut dalam setiap sendokan, dengan beragam pilihan varian yang memuaskan selera, sempurna untuk mengakhiri hidangan Anda dengan manis.', 8000, 'Dessert');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history_user`
+--
+
+CREATE TABLE `history_user` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `nama_menu` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `history_user`
+--
+
+INSERT INTO `history_user` (`id`, `id_user`, `nama_menu`, `quantity`, `total_price`) VALUES
+(1, 5, 'Caprese Salad', 1, 52000),
+(2, 5, 'Caprese Salad', 1, 52000),
+(3, 5, 'Iced Latte', 1, 16000),
+(4, 5, 'New York Cheesecake', 1, 36000);
 
 --
 -- Indexes for dumped tables
@@ -119,6 +156,13 @@ ALTER TABLE `data_makanan`
   ADD PRIMARY KEY (`id_menu`);
 
 --
+-- Indexes for table `history_user`
+--
+ALTER TABLE `history_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idtoid` (`id_user`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -132,13 +176,19 @@ ALTER TABLE `access_table`
 -- AUTO_INCREMENT for table `cart_table`
 --
 ALTER TABLE `cart_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `data_makanan`
 --
 ALTER TABLE `data_makanan`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `history_user`
+--
+ALTER TABLE `history_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -150,6 +200,12 @@ ALTER TABLE `data_makanan`
 ALTER TABLE `cart_table`
   ADD CONSTRAINT `carttofood` FOREIGN KEY (`product_id`) REFERENCES `data_makanan` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `carttouser` FOREIGN KEY (`user_id`) REFERENCES `access_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `history_user`
+--
+ALTER TABLE `history_user`
+  ADD CONSTRAINT `idtoid` FOREIGN KEY (`id_user`) REFERENCES `access_table` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
