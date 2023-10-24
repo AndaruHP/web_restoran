@@ -1,6 +1,37 @@
 <?php
 session_start();
 include('database/connect.php');
+
+if (isset($_POST['add_to_cart'])) {
+    if (!isset($_SESSION['user_id'])) {
+        header('location: loginAndRegister/login.php');
+    } else {
+        $id_produk = $_POST['id_produk'];
+        $id_user = $_POST['id_user'];
+
+        $check_query = "SELECT * FROM cart_table WHERE product_id = '$id_produk' AND user_id = '$id_user'";
+        $check_result = mysqli_query($conn, $check_query);
+
+        if (mysqli_num_rows($check_result) > 0) {
+            $update_query = "UPDATE cart_table SET quantity = quantity + 1 WHERE product_id = '$id_produk' AND user_id = '$id_user'";
+            $update_result = mysqli_query($conn, $update_query);
+            // if ($update_result) {
+            //     echo "<script>alert('Jumlah produk dalam keranjang berhasil diperbarui')</script>";
+            // } else {
+            //     echo "<script>alert('Gagal memperbarui jumlah produk dalam keranjang')</script>";
+            // }
+        } else {
+            $insert_query = "INSERT INTO cart_table (product_id, user_id, quantity) VALUES ('$id_produk', '$id_user', 1)";
+            $insert_result = mysqli_query($conn, $insert_query);
+            // if ($insert_result) {
+            //     echo "<script>alert('Produk berhasil ditambahkan ke keranjang')</script>";
+            // } else {
+            //     echo "<script>alert('Gagal menambahkan produk ke keranjang')</script>";
+            // }
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +45,7 @@ include('database/connect.php');
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
@@ -29,32 +59,31 @@ include('database/connect.php');
             <a class="navbar-brand" href="#">
                 Restoran
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                <?php
-                if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] != 0 || $_SESSION['user_id'] != 1)) {
-                    echo '<li class="nav-item">';
-                    echo '<a class="nav-link navbar-btn" href="bridge/bridge.php">Account</a>';
-                    echo '</li>';
-                    echo '<li class="nav-item">';
-                    echo '<a class="nav-link navbar-btn" href="cart/cart.php">Cart</a>';
-                    echo '</li>';
-                } else {
-                    echo '<li class="nav-item">';
-                    echo '<a class="nav-link navbar-btn" href="cart/cart.php">Cart</a>';
-                    echo '</li>';
-                    echo '<li class="nav-item">';
-                    echo '<a class="nav-link navbar-btn" href="loginAndRegister/login.php">Login</a>';
-                    echo '</li>';
-                    echo '<li class="nav-item">';
-                    echo '<a class="nav-link navbar-btn" href="loginAndRegister/register.php">Register</a>';
-                    echo '</li>';
-                }
-                ?>
+                    <?php
+                    if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] != 0 || $_SESSION['user_id'] != 1)) {
+                        echo '<li class="nav-item">';
+                        echo '<a class="nav-link navbar-btn" href="bridge/bridge.php">Account</a>';
+                        echo '</li>';
+                        echo '<li class="nav-item">';
+                        echo '<a class="nav-link navbar-btn" href="cart/cart.php">Cart</a>';
+                        echo '</li>';
+                    } else {
+                        echo '<li class="nav-item">';
+                        echo '<a class="nav-link navbar-btn" href="cart/cart.php">Cart</a>';
+                        echo '</li>';
+                        echo '<li class="nav-item">';
+                        echo '<a class="nav-link navbar-btn" href="loginAndRegister/login.php">Login</a>';
+                        echo '</li>';
+                        echo '<li class="nav-item">';
+                        echo '<a class="nav-link navbar-btn" href="loginAndRegister/register.php">Register</a>';
+                        echo '</li>';
+                    }
+                    ?>
 
             </div>
         </div>
@@ -163,35 +192,6 @@ include('database/connect.php');
     <div></div>
 
     <?php
-    if (isset($_POST['add_to_cart'])) {
-        $id_produk = $_POST['id_produk'];
-        $id_user = $_POST['id_user'];
-
-        $check_query = "SELECT * FROM cart_table WHERE product_id = '$id_produk' AND user_id = '$id_user'";
-        $check_result = mysqli_query($conn, $check_query);
-
-        if (mysqli_num_rows($check_result) > 0) {
-            // Produk sudah ada di keranjang, tingkatkan jumlahnya
-            $update_query = "UPDATE cart_table SET quantity = quantity + 1 WHERE product_id = '$id_produk' AND user_id = '$id_user'";
-            $update_result = mysqli_query($conn, $update_query);
-
-            // if ($update_result) {
-            //     echo "<script>alert('Jumlah produk dalam keranjang berhasil diperbarui')</script>";
-            // } else {
-            //     echo "<script>alert('Gagal memperbarui jumlah produk dalam keranjang')</script>";
-            // }
-        } else {
-            // Produk belum ada di keranjang, tambahkan dengan jumlah awal 1
-            $insert_query = "INSERT INTO cart_table (product_id, user_id, quantity) VALUES ('$id_produk', '$id_user', 1)";
-            $insert_result = mysqli_query($conn, $insert_query);
-
-            // if ($insert_result) {
-            //     echo "<script>alert('Produk berhasil ditambahkan ke keranjang')</script>";
-            // } else {
-            //     echo "<script>alert('Gagal menambahkan produk ke keranjang')</script>";
-            // }
-        }
-    }
 
     ?>
 
@@ -221,20 +221,18 @@ include('database/connect.php');
                 <?php
                 $sql = "SELECT * FROM data_makanan";
                 $result = mysqli_query($conn, $sql);
-                foreach ($result as $key): ?>
+                $userid = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : -1;
+                foreach ($result as $key) : ?>
                     <div class="col-lg-6 menu-item filter-<?= str_replace(' ', '', $key['kategori_menu']) ?>">
                         <!-- tolong ini biar bentuknya menyesuaikan card, bisa dipencet yang akan muncul deskripsi, bisa di close -->
                         <div class="img-container">
-                            <img src="admin/uploads/<?= $key['gambar_menu'] ?>" class="menu-img"
-                                alt="<?= $key['gambar_menu'] ?>">
+                            <img src="admin/uploads/<?= $key['gambar_menu'] ?>" class="menu-img" alt="<?= $key['gambar_menu'] ?>">
                         </div>
                         <div class="menu-content">
                             <a class="menu-title">
                                 <?= $key['nama_menu'] ?>
                             </a>
-                            <span>Rp.
-                                <?= $key['harga_menu'] ?>
-                            </span>
+                            <span>Rp<?= number_format($key['harga_menu'], 0, ',', '.') ?></span>
                         </div>
                         <div class="menu-ingredients">
                             <?= $key['deskripsi_menu'] ?>
@@ -243,7 +241,7 @@ include('database/connect.php');
                             <div class="button-container">
                                 <button class="btn cart-button" type="submit" name="add_to_cart">add to cart</button>
                                 <input type="hidden" name="id_produk" value="<?= $key['id_menu'] ?>">
-                                <!-- <input type="hidden" name="id_user" value="<?= $_SESSION['user_id'] ?>"> -->
+                                <input type="hidden" name="id_user" value="<?= $_SESSION['user_id'] ?>">
                             </div>
                         </form>
                     </div>
@@ -270,7 +268,7 @@ include('database/connect.php');
                         <div class="footer-info">
                             <h3>Restoran</h3>
                             <p>
-                                
+
 
                             </p>
 
@@ -317,12 +315,8 @@ include('database/connect.php');
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init();
@@ -330,7 +324,7 @@ include('database/connect.php');
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Initialize Isotope
             $('.menu-container').isotope({
                 itemSelector: '.menu-item',
@@ -338,11 +332,13 @@ include('database/connect.php');
             });
 
             // Filter items on button click
-            $('#menu-flters li').on('click', function () {
+            $('#menu-flters li').on('click', function() {
                 $('#menu-flters li').removeClass('filter-active');
                 $(this).addClass('filter-active');
                 var selector = $(this).data('filter');
-                $('.menu-container').isotope({ filter: selector });
+                $('.menu-container').isotope({
+                    filter: selector
+                });
             });
         });
 

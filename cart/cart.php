@@ -86,7 +86,6 @@ if (isset($_POST['checkout'])) {
 
                         // Loop through the combined data
                         $totalprice = 0;
-                        $_SESSION['totalprice'] = $totalprice;
 
                         foreach ($cart as $item) {
                             if ($item['quantity'] > 0) {
@@ -122,6 +121,7 @@ if (isset($_POST['checkout'])) {
                         <?php
                                 $productprice = $item['harga_menu'] * $item['quantity'];
                                 $totalprice += $productprice;
+                                $_SESSION['totalprice'] = $totalprice;
                             }
                         }
                         // Checkout button
