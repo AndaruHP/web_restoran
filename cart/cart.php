@@ -10,10 +10,33 @@ $user_id = $_SESSION['user_id'];
 
 
 if (isset($_POST['checkout'])) {
-    $sql = "DELETE FROM cart_table WHERE user_id = $user_id";
+    $sql = "SELECT dm.*, ct.quantity FROM data_makanan dm LEFT JOIN cart_table ct ON dm.id_menu = ct.product_id WHERE ct.user_id = $user_id";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
+        die("Error: " . mysqli_error($conn));
+    }
+
+    $cart = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    foreach ($cart as $item) {
+        if ($item['quantity'] > 0) {
+            $menuName = $item['nama_menu'];
+            $quantity = $item['quantity'];
+            $productPrice = $item['harga_menu'] * $quantity;
+
+            $insertHistoryQuery = "INSERT INTO history_user (id_user, nama_menu, quantity, total_price) VALUES ('$user_id', '$menuName', '$quantity', '$productPrice')";
+            $insertHistoryResult = mysqli_query($conn, $insertHistoryQuery);
+
+            if (!$insertHistoryResult) {
+                die("Error: " . mysqli_error($conn));
+            }
+        }
+    }
+    $deleteCartQuery = "DELETE FROM cart_table WHERE user_id = $user_id";
+    $deleteCartResult = mysqli_query($conn, $deleteCartQuery);
+
+    if (!$deleteCartResult) {
         die("Error: " . mysqli_error($conn));
     }
 
@@ -31,12 +54,10 @@ if (isset($_POST['checkout'])) {
     <title>Cart</title>
     <link rel="stylesheet" type="text/css" href="../css/navbar.css">
     <link rel="stylesheet" type="text/css" href="../css/index.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
@@ -45,29 +66,30 @@ if (isset($_POST['checkout'])) {
             padding-top: 80px;
             /* Adjust the value as needed */
         }
+
         .card-body {
-    background-color: black;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
 
-/* Adjust the button color */
-.card-body .btn {
-    color: white;
-}
+        /* Adjust the button color */
+        .card-body .btn {
+            color: white;
+        }
 
-.custom-card {
-    border: none; /* Remove the border */
-    padding: 0; /* Remove padding if needed */
-    margin: 0; /* Remove margin if needed */
-}
-
-
-
+        .custom-card {
+            border: none;
+            /* Remove the border */
+            padding: 0;
+            /* Remove padding if needed */
+            margin: 0;
+            /* Remove margin if needed */
+        }
     </style>
 </head>
 
@@ -77,8 +99,7 @@ if (isset($_POST['checkout'])) {
             <a class="navbar-brand" href="../index.php">
                 Cafetarian
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -127,9 +148,9 @@ if (isset($_POST['checkout'])) {
                 // Initialize totalprice
                 $totalprice = 0;
 
-                foreach ($cart as $item):
-                    if ($item['quantity'] > 0):
-                        ?>
+                foreach ($cart as $item) :
+                    if ($item['quantity'] > 0) :
+                ?>
                         <div class="col-lg-6 menu-item filter-<?= str_replace(' ', '', $item['kategori_menu']) ?>">
                             <div class="img-container">
                                 <img src='../admin/uploads/<?= $item['gambar_menu'] ?>' class="menu-img">
@@ -165,7 +186,7 @@ if (isset($_POST['checkout'])) {
                                 </div>
                             </div>
                         </div>
-                        <?php
+                <?php
                         $productprice = $item['harga_menu'] * $item['quantity'];
                         $totalprice += $productprice;
                     endif;
@@ -177,7 +198,7 @@ if (isset($_POST['checkout'])) {
 
     <div class="card mx-auto col-lg-6 custom-card">
         <div class="card">
-            <div class="card-body text-center" >
+            <div class="card-body text-center">
                 <div class="col-md-9">
                     <h4>Total Price: Rp
                         <?= number_format($totalprice, 0, ',', '.') ?>
@@ -201,12 +222,8 @@ if (isset($_POST['checkout'])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
     AOS.init();
@@ -214,7 +231,6 @@ if (isset($_POST['checkout'])) {
 
 
 <script>
-
     function scrollToSection(sectionId) {
         var targetSection = document.querySelector(sectionId);
 
