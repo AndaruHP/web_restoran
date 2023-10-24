@@ -291,7 +291,7 @@ if (isset($_POST['add_to_cart'])) {
 
                     <div class="col-lg-2 col-md-6 footer-links">
                         <h4>Useful Links</h4>
-                        <p> https://github.com/AndaruHP/web_restoran </p>
+                        <a href="https://github.com/AndaruHP/web_restoran" style="text-decoration:none;"> https://github.com/AndaruHP/web_restoran </a>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
