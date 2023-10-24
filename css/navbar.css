@@ -12,12 +12,15 @@
     color: #fbf5e9;
 }
 
-.navbar-nav .nav-link:hover {
-}
+
 
 .navbar-brand {
     color: #fbf5e9 !important;
     cursor: pointer;
+}
+
+.navbar-brand:hover{
+  color: #cda45e !important;
 }
 
 .navbar-btn {
