@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['status'] = "";
 if (isset($_SESSION['user_login'])) {
     if ($_SESSION['role'] == 0) {
         header('location: ../admin/admin_dashboard.php');
@@ -19,8 +20,7 @@ if (isset($_SESSION['user_login'])) {
     <title>Register Page</title>
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/index.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
@@ -185,7 +185,7 @@ if (isset($_SESSION['user_login'])) {
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand" href="../index.php">
-        IF-330 Cafetarian
+            IF-330 Cafetarian
         </a>
 
     </div>
@@ -223,16 +223,16 @@ if (isset($_SESSION['user_login'])) {
         if (count($error_message) > 0) {
             // ini kalo ada yang error
             foreach ($error_message as $error) {
-                echo "<div class='alert alert-danger'>$error</div>";
+                $_SESSION['status'] = "<div class='alert alert-danger'>$error</div>";
             }
         } else {
             $sql = "INSERT INTO access_table (first_name, last_name, gender_type, birth_date, username, password, role)
                 VALUES ('$first_name', '$last_name', '$gender_type', '$birth_date', '$username', '$password', 1)";
             $result = mysqli_query($conn, $sql);
             if ($result) {
-                echo "<div class='alert alert-success'>Register berhasil</div>";
+                $_SESSION['status'] = "<div class='alert alert-success'>Register berhasil</div>";
             } else {
-                echo "<div class='alert alert-danger'>Register gagal</div>";
+                $_SESSION['status'] = "<div class='alert alert-danger'>Register gagal</div>";
             }
         }
     }
@@ -243,6 +243,9 @@ if (isset($_SESSION['user_login'])) {
     </div>
     <form action="" method="post">
         <h3>Register</h3>
+        <?php
+        echo $_SESSION['status'];
+        ?>
         <div class="form-group">
             <label for="first_name">Nama Depan</label>
             <input type="text" class="form-control" name="first_name">

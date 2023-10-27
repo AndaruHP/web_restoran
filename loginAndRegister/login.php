@@ -1,6 +1,7 @@
 <?php
 ob_start();
 require_once "captcha.php";
+$_SESSION['status'] = "";
 
 session_start();
 if (isset($_SESSION['user_login'])) {
@@ -15,29 +16,30 @@ if (isset($_SESSION['user_login'])) {
 
 if (isset($_POST['submit_login'])) {
     $PHPCAP = new Captcha(); // Inisialisasi objek Captcha
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    require_once('../database/connect.php'); // Pastikan file connect.php ada
+    $captchaInput = $_POST['captcha'];
 
-    // SQL Injection
-    $sql = "SELECT * FROM access_table WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user_login = $result->fetch_assoc();
-    $user_id = $user_login['id'];
-
-    if (!$user_login) {
-        echo "<div class='alert alert-danger'>Username tidak ditemukan</div>";
+    // Verifikasi captcha
+    if (!$PHPCAP->verify($captchaInput)) {
+        $_SESSION['status'] = "<div class='alert alert-danger'>Captcha tidak sesuai</div>";
     } else {
-        // Verifikasi password
-        if (password_verify($password, $user_login["password"])) {
-            // Verifikasi captcha
-            $captchaInput = $_POST['captcha'];
-            if (!$PHPCAP->verify($captchaInput)) {
-                echo "<div class='alert alert-danger'>Captcha tidak sesuai</div>";
-            } else {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        require_once('../database/connect.php'); // Pastikan file connect.php ada
+
+        // SQL Injection
+        $sql = "SELECT * FROM access_table WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user_login = $result->fetch_assoc();
+        $user_id = $user_login['id'];
+
+        if (!$user_login) {
+            $_SESSION['status'] = "<div class='alert alert-danger'>Username tidak ditemukan</div>";
+        } else {
+            // Verifikasi password
+            if (password_verify($password, $user_login["password"])) {
                 // Captcha benar, set session dan arahkan ke halaman berikutnya
                 $_SESSION['user_login'] = true;
                 if ($user_login['role'] == 0) {
@@ -51,15 +53,14 @@ if (isset($_POST['submit_login'])) {
                     header('location: ../bridge/bridge.php');
                     exit;
                 }
+            } else {
+                $_SESSION['status'] = "<div class='alert alert-danger'>Password salah</div>";
             }
-        } else {
-            echo "<div class='alert alert-danger'>Password salah</div>";
         }
     }
 }
 ob_end_flush();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -238,6 +239,9 @@ ob_end_flush();
     </div>
     <form action="" method="post">
         <h3>Log in</h3>
+        <?php
+        echo $_SESSION['status'];
+        ?>
         <div class="form-outline">
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username">
